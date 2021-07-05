@@ -14,12 +14,12 @@ class City(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-	'''if request.method == 'POST':
-					new_city = request.form.get('city')
-					if new_city:
-						city_obj = City(name = new_city)
-						db.session.add(city_obj)
-						db.session.commit()'''
+	if request.method == 'POST':
+		new_city = request.form.get('city')
+		if new_city:
+			city_obj = City(name = new_city)
+			db.session.add(city_obj)
+			db.session.commit()
 
 	cities = City.query.all()
 	weather_data = []
@@ -34,6 +34,7 @@ def index():
 			'description': r['weather'][0]['description'],
 			'icon': r['weather'][0]['icon']
 		}
+		print(weather['temperature'])
 		weather_data.append(weather)
 
 	return render_template('weather.html', weather_data = weather_data)
